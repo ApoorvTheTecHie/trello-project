@@ -3,6 +3,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import {
+  Button
+} from 'react-bootstrap';
 
 import * as ListsActions from '../../actions/lists';
 
@@ -103,13 +106,34 @@ export default class Board extends Component {
     this.props.getLists(quantity+1);
   }
 
+  deleteCardList = () => {
+    localStorage.setItem("my data", this.props.lists);
+    // console.log(this.props.lists)
+    console.log(localStorage);
+    localStorage.getItem("my data");
+    const quantity = this.props.lists.length;
+    this.props.getLists(quantity - 1);
+  }
+
   render() {
     console.log(this.props.lists[0]);
     const { lists } = this.props;
 
     return (
       <div style={{ height: '100%' }}>
-      <button onClick={() => this.addCardList()} style={{ display : "flex", justifyContent : "center", alignSelf : "center"}}>Add New Card</button>
+        <div style={{ display : 'flex', flexDirection : 'row', justifyContent : 'space-between'}}>
+          <Button 
+            bsStyle="success"
+            onClick={() => this.addCardList()} 
+            style={{ marginBottom : '10px', display : "flex"}}>Add
+          </Button>
+          <h4 style={{ color : "white"}}> MODERN TODO </h4>
+          <Button
+              bsStyle="danger"
+              onClick={() => this.deleteCardList()}
+              style={{ marginBottom: '10px', display: "flex"}}>Delete
+            </Button>
+        </div>    
         <CustomDragLayer snapToGrid={false} />
         {lists.map((item, i) =>
           <CardsContainer

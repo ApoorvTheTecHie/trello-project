@@ -14,6 +14,8 @@ const Card = (props) => {
 
   return (
     <div style={style} className="item" id={style ? item.id : null}>
+    {/* Inner card Title */}
+    
       <div className="item-name">{item.title}</div>
       <div className="item-container">
         <div className="item-avatar-wrap">
